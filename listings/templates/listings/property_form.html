@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Create Property Listing{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Create Property Listing</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        {% for message in messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        
+        <div class="form-group">
+            <label for="id_title">Title:</label>
+            <input type="text" class="form-control" id="id_title" name="title" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="id_description">Description:</label>
+            <textarea class="form-control" id="id_description" name="description" rows="5"></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="id_price">Price:</label>
+            <input type="number" class="form-control" id="id_price" name="price" step="0.01" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="id_bedrooms">Bedrooms:</label>
+            <input type="number" class="form-control" id="id_bedrooms" name="bedrooms" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="id_bathrooms">Bathrooms:</label>
+            <input type="number" class="form-control" id="id_bathrooms" name="bathrooms" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="id_area">Area (sq ft):</label>
+            <input type="number" class="form-control" id="id_area" name="area" step="0.01" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="id_address">Address:</label>
+            <input type="text" class="form-control" id="id_address" name="address" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="id_city">City:</label>
+            <input type="text" class="form-control" id="id_city" name="city" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="id_state">State:</label>
+            <input type="text" class="form-control" id="id_state" name="state" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="id_zip_code">Zip Code:</label>
+            <input type="text" class="form-control" id="id_zip_code" name="zip_code" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="id_images">Images:</label>
+            <input type="file" class="form-control-file" id="id_images" name="images" multiple>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Create Listing</button>
+    </form>
+</div>
+
+<!-- CKEditor Script for rich text description -->
+<script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('id_description');
+</script>
+{% endblock %}

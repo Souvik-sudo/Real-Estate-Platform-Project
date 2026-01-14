@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Property Listings{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Property Listings</h2>
+
+<form class="mb-4" action="{% url 'property_list' %}" method="get">
+    <div class="row mb-3">
+        <div class="col-md-3">
+            <input type="text" class="form-control" name="q" placeholder="Search by title..." value="{{ request.GET.q }}">
+        </div>
+        <div class="col-md-3">
+            <input type="text" class="form-control" name="location" placeholder="Location" value="{{ request.GET.location }}">
+        </div>
+        <div class="col-md-2">
+            <input type="number" class="form-control" name="min_price" placeholder="Min Price" value="{{ request.GET.min_price }}">
+        </div>
+        <div class="col-md-2">
+            <input type="number" class="form-control" name="max_price" placeholder="Max Price" value="{{ request.GET.max_price }}">
+        </div>
+        <div class="col-md-2">
+            <input type="text" class="form-control" name="state" placeholder="State" value="{{ request.GET.state }}">
+        </div>
+        <div class="col-md-2">
+            <input type="number" class="form-control" name="bhk" placeholder="BHK" value="{{ request.GET.bhk }}">
+        </div>
+        <div class="col-md-2 mt-2">
+            <button class="btn btn-primary" type="submit">Search & Filter</button>
+        </div>
+    </div>
+</form>
+
+<div class="row">
+    {% for property in properties %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            {% if property.images.first %}
+            <img src="{{ property.images.first.image.url }}" class="card-img-top" alt="{{ property.title }}" style="height: 200px; object-fit: cover;">
+            {% else %}
+            <div class="card-img-top bg-secondary text-white d-flex justify-content-center align-items-center" style="height: 200px;">
+                <span>No Image Available</span>
+            </div>
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ property.title }}</h5>
+                <p class="card-text">{{ property.description|safe }}</p>
+                <p class="card-text"><strong>Price:</strong> ${{ property.price }}</p>
+                <p class="card-text"><strong>Location:</strong> {{ property.city }}, {{ property.state }}</p>
+                <p class="card-text"><strong>BHK:</strong> {{ property.bedrooms }}</p>
+            </div>
+        
+            <div class="card-footer">
+                <a href="{% url 'property_detail' property.pk %}" class="btn btn-primary">View Details</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <p>No properties found.</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

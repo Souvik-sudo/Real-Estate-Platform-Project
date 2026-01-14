@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact Success{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Thank You!</h2>
+    <p>Your message has been sent successfully.</p>
+    <a href="{% url 'property_list' %}" class="btn btn-primary">Back to Property List</a>
+</div>
+{% endblock %}
